@@ -21,9 +21,11 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         buttonGroupTipoTrabajador.add(jRadioButtonTrabajadorHoras);
         buttonGroupTipoTrabajador.add(jRadioButtonTrabajadorMontador);
         buttonGroupTipoTrabajador.add(jRadioButtonTrabajadorComision);
-        jTextFieldActualizable1.setVisible(false);
-        jTextFieldActualizable2.setVisible(false);
-        jTextFieldActualizable3.setVisible(false);
+        //jTextFieldActualizable1.setVisible(false);
+        //jTextFieldActualizable2.setVisible(false);
+        //jTextFieldActualizable3.setVisible(false);
+        
+        jButtonAñadir.setEnabled(true);
         
         
         
@@ -270,7 +272,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
                 .addComponent(jTextFieldSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonEliminarTrabajador)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
             .addGroup(jPanelTrabajadoresActivosLayout.createSequentialGroup()
                 .addComponent(jScrollPane)
                 .addContainerGap())
@@ -293,8 +295,8 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelDatosTrabajador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelTipodeTrabajador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelTrabajadoresActivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelTrabajadoresActivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -302,6 +304,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
 
     private void jButtonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirActionPerformed
         // TODO add your handling code here:
+        jTextFieldNombre.setText("Hola");
     }//GEN-LAST:event_jButtonAñadirActionPerformed
 
     private void jButtonBorrarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarDatosActionPerformed
@@ -310,7 +313,9 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
 
     private void jRadioButtonJefeProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonJefeProyectoActionPerformed
         // TODO add your handling code here:
-        
+        jTextFieldNombre.setText("Hola");
+        jTextFieldActualizable1.setText("Jefe Proyecto");
+        jTextFieldActualizable2.setText("Jefe Proyecto");
     }//GEN-LAST:event_jRadioButtonJefeProyectoActionPerformed
 
     /**
