@@ -3,28 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyecto.winempleados;
+package WinEmpleados;
+
+import javax.swing.JFrame;
 
 /**
  *
  * @author alumno
  */
-public class ProGestionEmpleados extends javax.swing.JFrame {
+public class GestionEmpleados extends javax.swing.JPanel {
 
     /**
-     * Creates new form ProGestionEmpleados
+     * Creates new form GestionEmpleados
      */
-    public ProGestionEmpleados() {
+    public GestionEmpleados() {
         initComponents();
         
         buttonGroupTipoTrabajador.add(jRadioButtonJefeProyecto);
         buttonGroupTipoTrabajador.add(jRadioButtonTrabajadorHoras);
         buttonGroupTipoTrabajador.add(jRadioButtonTrabajadorMontador);
-        buttonGroupTipoTrabajador.add(jRadioButtonTrabajadorComision);
-        jTextFieldActualizable1.setVisible(false);
-        jTextFieldActualizable2.setVisible(false);
-        jTextFieldActualizable3.setVisible(false);
-        
+        buttonGroupTipoTrabajador.add(jRadioButtonTrabajadorMontador);
         
         
     }
@@ -66,15 +64,13 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         jTextFieldSalario = new javax.swing.JTextField();
         jButtonEliminarTrabajador = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jPanelDatosTrabajador.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Trabajador"));
 
         jLabelNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelNombre.setText("Nombre:");
 
         jLabelApellido.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabelApellido.setText("Apellido:");
+        jLabelApellido.setText("Apellido");
 
         jLabelActualizable1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelActualizable1.setText(" ");
@@ -147,11 +143,6 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         jPanelTipoTrabajador.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo Trabajador"));
 
         jRadioButtonJefeProyecto.setText("Jefe de Proyecto");
-        jRadioButtonJefeProyecto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonJefeProyectoActionPerformed(evt);
-            }
-        });
 
         jRadioButtonTrabajadorHoras.setText("Trabajador por Horas");
 
@@ -212,7 +203,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
                     .addGroup(jPanelTipodeTrabajadorLayout.createSequentialGroup()
                         .addComponent(jButtonAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonBorrarDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonBorrarDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
                     .addComponent(jPanelTipoTrabajador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -270,14 +261,14 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
                 .addComponent(jTextFieldSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonEliminarTrabajador)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
             .addGroup(jPanelTrabajadoresActivosLayout.createSequentialGroup()
                 .addComponent(jScrollPane)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -296,8 +287,6 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelTrabajadoresActivos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirActionPerformed
@@ -308,45 +297,6 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonBorrarDatosActionPerformed
 
-    private void jRadioButtonJefeProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonJefeProyectoActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jRadioButtonJefeProyectoActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProGestionEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProGestionEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProGestionEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProGestionEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ProGestionEmpleados().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupTipoTrabajador;
