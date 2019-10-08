@@ -16,7 +16,11 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
      */
     public ProGestionEmpleados() {
         initComponents();
+        initMyComponents();
         
+    }
+    
+    private void initMyComponents(){
         buttonGroupTipoTrabajador.add(jRadioButtonJefeProyecto);
         buttonGroupTipoTrabajador.add(jRadioButtonTrabajadorHoras);
         buttonGroupTipoTrabajador.add(jRadioButtonTrabajadorMontador);
@@ -24,11 +28,6 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         //jTextFieldActualizable1.setVisible(false);
         //jTextFieldActualizable2.setVisible(false);
         //jTextFieldActualizable3.setVisible(false);
-        
-        jButtonAñadir.setEnabled(true);
-        
-        
-        
     }
 
     /**
@@ -79,17 +78,27 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         jLabelApellido.setText("Apellido:");
 
         jLabelActualizable1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabelActualizable1.setText(" ");
+        jLabelActualizable1.setText("Salario Base:");
 
         jLabelActualizable2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabelActualizable2.setText(" ");
+        jLabelActualizable2.setText("Incentivo Proyecto:");
 
         jLabelActualizable3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabelActualizable3.setText(" ");
+        jLabelActualizable3.setText("Nº Proyectos");
 
         jTextFieldNombre.setText(" ");
+        jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreKeyReleased(evt);
+            }
+        });
 
         jTextFieldApellido.setText(" ");
+        jTextFieldApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldApellidoKeyReleased(evt);
+            }
+        });
 
         jTextFieldActualizable1.setText(" ");
 
@@ -102,14 +111,20 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         jPanelDatosTrabajadorLayout.setHorizontalGroup(
             jPanelDatosTrabajadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDatosTrabajadorLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(jPanelDatosTrabajadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelApellido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelActualizable1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelActualizable2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelActualizable3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatosTrabajadorLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanelDatosTrabajadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelActualizable1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanelDatosTrabajadorLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanelDatosTrabajadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabelActualizable2, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .addComponent(jLabelActualizable3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanelDatosTrabajadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,18 +163,34 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
 
         jPanelTipoTrabajador.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo Trabajador"));
 
+        jRadioButtonJefeProyecto.setSelected(true);
         jRadioButtonJefeProyecto.setText("Jefe de Proyecto");
-        jRadioButtonJefeProyecto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonJefeProyectoActionPerformed(evt);
+        jRadioButtonJefeProyecto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButtonJefeProyectoItemStateChanged(evt);
             }
         });
 
         jRadioButtonTrabajadorHoras.setText("Trabajador por Horas");
+        jRadioButtonTrabajadorHoras.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButtonTrabajadorHorasItemStateChanged(evt);
+            }
+        });
 
         jRadioButtonTrabajadorMontador.setText("Trabajador Montador");
+        jRadioButtonTrabajadorMontador.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButtonTrabajadorMontadorItemStateChanged(evt);
+            }
+        });
 
         jRadioButtonTrabajadorComision.setText("Trabajador a Comisión");
+        jRadioButtonTrabajadorComision.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButtonTrabajadorComisionItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelTipoTrabajadorLayout = new javax.swing.GroupLayout(jPanelTipoTrabajador);
         jPanelTipoTrabajador.setLayout(jPanelTipoTrabajadorLayout);
@@ -272,10 +303,10 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
                 .addComponent(jTextFieldSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonEliminarTrabajador)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanelTrabajadoresActivosLayout.createSequentialGroup()
-                .addComponent(jScrollPane)
-                .addContainerGap())
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -304,20 +335,86 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
 
     private void jButtonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirActionPerformed
         // TODO add your handling code here:
-        jTextFieldNombre.setText("Hola");
+        
     }//GEN-LAST:event_jButtonAñadirActionPerformed
 
     private void jButtonBorrarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarDatosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonBorrarDatosActionPerformed
 
-    private void jRadioButtonJefeProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonJefeProyectoActionPerformed
+    private void jRadioButtonJefeProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonJefeProyectoItemStateChanged
         // TODO add your handling code here:
-        jTextFieldNombre.setText("Hola");
-        jTextFieldActualizable1.setText("Jefe Proyecto");
-        jTextFieldActualizable2.setText("Jefe Proyecto");
-    }//GEN-LAST:event_jRadioButtonJefeProyectoActionPerformed
+        jTextFieldActualizable3.setVisible(true);
+        jLabelActualizable1.setText("Salario Base:");
+        jLabelActualizable2.setText("Incentivo Proyecto:");
+        jLabelActualizable3.setText("Nº Proyectos");
+        clearFields();
+    }//GEN-LAST:event_jRadioButtonJefeProyectoItemStateChanged
 
+    private void jRadioButtonTrabajadorHorasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonTrabajadorHorasItemStateChanged
+        // TODO add your handling code here:
+        jTextFieldActualizable3.setVisible(false);
+        jLabelActualizable1.setText("Salario Hora:");
+        jLabelActualizable2.setText("Numero Horas:");
+        jLabelActualizable3.setText(" ");
+        clearFields();
+    }//GEN-LAST:event_jRadioButtonTrabajadorHorasItemStateChanged
+
+    private void jRadioButtonTrabajadorMontadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonTrabajadorMontadorItemStateChanged
+        // TODO add your handling code here:
+        jTextFieldActualizable3.setVisible(false);
+        jLabelActualizable1.setText("Salario Pieza:");
+        jLabelActualizable2.setText("Numero Piezas:");
+        jLabelActualizable3.setText(" ");
+        clearFields();
+    }//GEN-LAST:event_jRadioButtonTrabajadorMontadorItemStateChanged
+
+    private void jRadioButtonTrabajadorComisionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonTrabajadorComisionItemStateChanged
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        jTextFieldActualizable3.setVisible(true);
+        jLabelActualizable1.setText("Salario Base:");
+        jLabelActualizable2.setText("Nº Piezas:");
+        jLabelActualizable3.setText("Comisión Pieza:");
+        clearFields();
+    }//GEN-LAST:event_jRadioButtonTrabajadorComisionItemStateChanged
+
+    private void jTextFieldNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyReleased
+        // TODO add your handling code here:
+        checkDataFields();
+    }//GEN-LAST:event_jTextFieldNombreKeyReleased
+
+    private void jTextFieldApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidoKeyReleased
+        // TODO add your handling code here:
+        checkDataFields();
+    }//GEN-LAST:event_jTextFieldApellidoKeyReleased
+
+    private void clearFields(){
+        jTextFieldNombre.setText(null);
+        jTextFieldApellido.setText(null);
+        jTextFieldActualizable1.setText(null);
+        jTextFieldActualizable2.setText(null);
+        jTextFieldActualizable3.setText(null);
+    }
+    
+    private boolean checkDataFields(){
+        
+        if (("".equals(jTextFieldNombre.getText())==false) &&
+                ("".equals(jTextFieldApellido.getText())==false) &&
+                    ("".equals(jTextFieldActualizable1.getText())==false) &&
+                        ("".equals(jTextFieldActualizable2.getText())==false) &&
+                            ("".equals(jTextFieldActualizable3.getText())==false)){
+            
+            
+            jButtonAñadir.setEnabled(true);
+            return true;
+        }else{
+            jButtonBorrarDatos.setEnabled(false);
+            return false;
+        }
+        
+    }
+    
     /**
      * @param args the command line arguments
      */

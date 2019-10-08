@@ -63,15 +63,25 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelNombre" alignment="1" min="-2" pref="105" max="-2" attributes="0"/>
-                      <Component id="jLabelApellido" alignment="1" min="-2" pref="105" max="-2" attributes="0"/>
-                      <Component id="jLabelActualizable1" alignment="1" min="-2" pref="105" max="-2" attributes="0"/>
-                      <Component id="jLabelActualizable2" alignment="1" min="-2" pref="105" max="-2" attributes="0"/>
-                      <Component id="jLabelActualizable3" alignment="1" min="-2" pref="105" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabelApellido" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
+                              <Component id="jLabelNombre" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
+                              <Component id="jLabelActualizable1" alignment="1" min="-2" pref="124" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabelActualizable2" pref="124" max="32767" attributes="0"/>
+                              <Component id="jLabelActualizable3" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jTextFieldNombre" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
                       <Component id="jTextFieldApellido" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
@@ -132,30 +142,36 @@
         <Component class="javax.swing.JLabel" name="jLabelActualizable1">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value=" "/>
+            <Property name="text" type="java.lang.String" value="Salario Base:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelActualizable2">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value=" "/>
+            <Property name="text" type="java.lang.String" value="Incentivo Proyecto:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelActualizable3">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value=" "/>
+            <Property name="text" type="java.lang.String" value="N&#xba; Proyectos"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNombre">
           <Properties>
             <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldNombreKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldApellido">
           <Properties>
             <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldApellidoKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldActualizable1">
           <Properties>
@@ -259,26 +275,36 @@
           <SubComponents>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonJefeProyecto">
               <Properties>
+                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Jefe de Proyecto"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonJefeProyectoActionPerformed"/>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jRadioButtonJefeProyectoItemStateChanged"/>
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonTrabajadorHoras">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Trabajador por Horas"/>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jRadioButtonTrabajadorHorasItemStateChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonTrabajadorMontador">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Trabajador Montador"/>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jRadioButtonTrabajadorMontadorItemStateChanged"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonTrabajadorComision">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Trabajador a Comisi&#xf3;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jRadioButtonTrabajadorComisionItemStateChanged"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -339,11 +365,11 @@
                   <Component id="jTextFieldSalario" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButtonEliminarTrabajador" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jScrollPane" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane" min="-2" pref="206" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
