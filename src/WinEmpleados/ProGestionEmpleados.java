@@ -399,17 +399,16 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
     
     private boolean checkDataFields(){
         
-        if (("".equals(jTextFieldNombre.getText())==false) &&
-                ("".equals(jTextFieldApellido.getText())==false) &&
-                    ("".equals(jTextFieldActualizable1.getText())==false) &&
-                        ("".equals(jTextFieldActualizable2.getText())==false) &&
-                            ("".equals(jTextFieldActualizable3.getText())==false)){
+        if (("".equals(jTextFieldNombre.getText())==true) &&
+                ("".equals(jTextFieldApellido.getText())==true) &&
+                    ("".equals(jTextFieldActualizable1.getText())==true) &&
+                        ("".equals(jTextFieldActualizable2.getText())==true) &&
+                            ("".equals(jTextFieldActualizable3.getText())==true)){
             
             
             jButtonAñadir.setEnabled(true);
             return true;
         }else{
-            jButtonBorrarDatos.setEnabled(false);
             return false;
         }
         
