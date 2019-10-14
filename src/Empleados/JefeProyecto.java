@@ -9,12 +9,13 @@ package Empleados;
  * @author enrique
  */
 public class JefeProyecto extends Empleado {
-    private final double incentivoPorProyecto=100.00;
+    private double incentivoPorProyecto=100.00;
     private double salarioBase;
     private int numeroProyectos;
-    public JefeProyecto(String nombre, String apellidos, double salarioBase, int numeroProyectos){
+    public JefeProyecto(String nombre, String apellidos, double salarioBase, double incentivo, int numeroProyectos){
         super(nombre,apellidos);
         this.salarioBase=salarioBase;
+        this.incentivoPorProyecto= incentivo;
         this.numeroProyectos=numeroProyectos;
     }
 
@@ -33,6 +34,8 @@ public class JefeProyecto extends Empleado {
     public void setNumeroProyectos(int numeroProyectos) {
         this.numeroProyectos = numeroProyectos;
     }
+    
+    
     
     @Override
     public double getSalario(){

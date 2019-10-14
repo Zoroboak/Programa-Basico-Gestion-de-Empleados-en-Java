@@ -177,16 +177,25 @@
           <Properties>
             <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldActualizable1KeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldActualizable2">
           <Properties>
             <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldActualizable2KeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldActualizable3">
           <Properties>
             <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldActualizable3KeyReleased"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -390,6 +399,9 @@
                 <Property name="selectionMode" type="int" value="0"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
+              <Events>
+                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="jListListaEmpleadosValueChanged"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -417,6 +429,9 @@
             <Property name="text" type="java.lang.String" value="Eliminar Trabajador"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEliminarTrabajadorActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
