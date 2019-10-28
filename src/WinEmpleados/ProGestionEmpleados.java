@@ -50,7 +50,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
 
     DefaultListModel modelo;
     Empleado aux; //empleado temporal
-    boolean campoCorrecto[] = new boolean[5];
+    boolean campoCorrecto[] = {false, false, false, false, false};
 
     /**
      * Creates new form ProGestionEmpleados
@@ -668,6 +668,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
     private void jButtonEliminarTrabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarTrabajadorActionPerformed
         // TODO add your handling code here
         modelo.removeElementAt(jListListaEmpleados.getSelectedIndex());
+        clearFields();
 
     }//GEN-LAST:event_jButtonEliminarTrabajadorActionPerformed
 
@@ -726,7 +727,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
     private void jMenuItemBorrarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarTodosActionPerformed
         // TODO add your handling code here:
         modelo.removeAllElements();
-        jMenuItemBorrarTodos.setEnabled(false);
+        clearFields();
     }//GEN-LAST:event_jMenuItemBorrarTodosActionPerformed
 
     private void jMenuItemBorrarSeleccionadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarSeleccionadosActionPerformed
@@ -737,12 +738,12 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
                 modelo.removeElementAt(selectedIndices[i]);
             }
         }
+        clearFields();
     }//GEN-LAST:event_jMenuItemBorrarSeleccionadosActionPerformed
 
     private void jMenuItemBorrarSelecciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarSelecciónActionPerformed
         // TODO add your handling code here:
         jButtonEliminarTrabajador.doClick();
-        jMenuItemBorrarSelección.setEnabled(false);
     }//GEN-LAST:event_jMenuItemBorrarSelecciónActionPerformed
 
     /**
@@ -767,6 +768,8 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         jMenuItemBorrarTodos.setEnabled(false);
         jMenuItemBorrarSeleccionados.setEnabled(false);
         jMenuItemBorrarSelección.setEnabled(false);
+        //Borrar Selección JList
+        jListListaEmpleados.clearSelection();
     }
 
     /**
@@ -782,10 +785,11 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         if (jTextFieldNombre.getText().matches("^[A-Z]?[a-z]{3,}")) {
             campoCorrecto[0] = true;
             jTextFieldNombre.setForeground(Color.BLACK);
-
+            System.out.println("Correcto");
         } else {
             campoCorrecto[0] = false;
             jTextFieldNombre.setForeground(Color.red);
+            System.out.println("Incorrecto");
         }
 
         //Apellido
@@ -798,7 +802,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
             jTextFieldApellido.setForeground(Color.red);
         }
         //Actualizable 1
-        if (jTextFieldActualizable1.getText().matches("^(\\d|-)?(\\d|,)*\\.?\\d*$")) {
+        if (jTextFieldActualizable1.getText().matches("^(\\d|-)?(\\d|,)+\\.?\\d*$")) {
             campoCorrecto[2] = true;
             jTextFieldActualizable1.setForeground(Color.BLACK);
 
@@ -808,7 +812,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         }
 
         //Actualizable 2
-        if (jTextFieldActualizable2.getText().matches("^(\\d|-)?(\\d|,)*\\.?\\d*$")) {
+        if (jTextFieldActualizable2.getText().matches("^(\\d|-)?(\\d|,)+\\.?\\d*$")) {
             campoCorrecto[3] = true;
             jTextFieldActualizable2.setForeground(Color.BLACK);
 
@@ -818,16 +822,17 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         }
 
         //Actualizable 3
-        if (jTextFieldActualizable1.getText().matches("^(\\d|-)?(\\d|,)*\\.?\\d*$")) {
+        if (jTextFieldActualizable3.getText().matches("^(\\d|-)?(\\d|,)+\\.?\\d*$")) {
             campoCorrecto[4] = true;
-            jTextFieldActualizable1.setForeground(Color.BLACK);
+            jTextFieldActualizable3.setForeground(Color.BLACK);
 
         } else {
             campoCorrecto[4] = false;
-            jTextFieldActualizable1.setForeground(Color.red);
+            jTextFieldActualizable3.setForeground(Color.red);
         }
 
         //-----------------------------------
+        
         //Al estar rellenado 1 campo: habilita boton borrarDatos
         if (!"".equals(jTextFieldNombre.getText().toString())
                 || !"".equals(jTextFieldApellido.getText().toString())
@@ -839,21 +844,14 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
 
         //Si el jefe o trabajador a comisión están selecionados: comprobar campos 5 y habilitar boton añadir
         if (jRadioButtonJefeProyecto.isSelected() || jRadioButtonTrabajadorComision.isSelected()) {
-            if (!"".equals(jTextFieldNombre.getText().toString())
-                    && !"".equals(jTextFieldApellido.getText().toString())
-                    && !"".equals(jTextFieldActualizable1.getText().toString())
-                    && !"".equals(jTextFieldActualizable2.getText().toString())
-                    && !"".equals(jTextFieldActualizable3.getText().toString())) {
+            if (campoCorrecto[0]&&campoCorrecto[1]&&campoCorrecto[2]&&campoCorrecto[3]&&campoCorrecto[4]) {
                 jButtonAñadir.setEnabled(true);
             } else {
                 jButtonAñadir.setEnabled(false);
             }
             //Si el jefe o trabajador a comisión están selecionados: comprobar campos 4 y habilitar boton añadir
         } else if (jRadioButtonTrabajadorHoras.isSelected() || jRadioButtonTrabajadorMontador.isSelected()) {
-            if (!"".equals(jTextFieldNombre.getText().toString())
-                    && !"".equals(jTextFieldApellido.getText().toString())
-                    && !"".equals(jTextFieldActualizable1.getText().toString())
-                    && !"".equals(jTextFieldActualizable2.getText().toString())) {
+            if (campoCorrecto[0]&&campoCorrecto[1]&&campoCorrecto[2]&&campoCorrecto[3]) {
                 jButtonAñadir.setEnabled(true);
             } else {
                 jButtonAñadir.setEnabled(false);
