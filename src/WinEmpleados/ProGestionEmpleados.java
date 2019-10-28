@@ -11,7 +11,6 @@ import Empleados.EmpleadoHoras;
 import Empleados.EmpleadoMontador;
 import Empleados.JefeProyecto;
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
