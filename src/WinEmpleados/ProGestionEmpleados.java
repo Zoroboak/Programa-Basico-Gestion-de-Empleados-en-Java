@@ -5,61 +5,53 @@
  */
 package WinEmpleados;
 
+import Empleados.Empleado;
 import Empleados.EmpleadoComision;
 import Empleados.EmpleadoHoras;
 import Empleados.EmpleadoMontador;
 import Empleados.JefeProyecto;
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Proyecto Gestion de Empleados con Interfaz Grafica en java
- * 
- * @author Pedro Pérez 14/10/2019 
- * 
- * Pseudocidgo del proyecto: 
- *      
-        Al Modificar un campo
-                Al estar rellenado 1 campo
-                        Habilitar boton borrarDatos
-                si es jefe o trabajador a comision
-                        Comprobar si están rellenados los 5 campos
-                        habilitar boton añadir
-                Si son montador o por horas
-                        habilitar boton añadir
-                        comprobar si están rellenados los 4 campos
-
-        Al presionar Añadir
-                Preguntar Tipo trabajador
-                        tomarDatos según el tipo
-                        crear nuevo empleado
-                        añadirlo a la lista
-                +clrearFields
-                desactivar ambos botones
-
-        al presionar boton borrarDatos
-                +clrearFields
-
-        al seleccionar un trabajador
-                habiliar boton eliminar trabajador
-                mostrar su salario
-
-        Al perder el focus de un trabajador
-                desabilitar boton eliminarTrabajdor
-                limpiarCampoSalario
-
-        al presionar boton eliminar trabajador
-                eliminar el trabajador selecionado de la lista
  *
- * 
+ * @author Pedro Pérez 14/10/2019
+ *
+ * Pseudocidgo del proyecto:
+ *
+ * Al Modificar un campo Al estar rellenado 1 campo Habilitar boton borrarDatos
+ * si es jefe o trabajador a comision Comprobar si están rellenados los 5 campos
+ * habilitar boton añadir Si son montador o por horas habilitar boton añadir
+ * comprobar si están rellenados los 4 campos
+ *
+ * Al presionar Añadir Preguntar Tipo trabajador tomarDatos según el tipo crear
+ * nuevo empleado añadirlo a la lista +clrearFields desactivar ambos botones
+ *
+ * al presionar boton borrarDatos +clrearFields
+ *
+ * al seleccionar un trabajador habiliar boton eliminar trabajador mostrar su
+ * salario
+ *
+ * Al perder el focus de un trabajador desabilitar boton eliminarTrabajdor
+ * limpiarCampoSalario
+ *
+ * al presionar boton eliminar trabajador eliminar el trabajador selecionado de
+ * la lista
+ *
+ *
  */
 public class ProGestionEmpleados extends javax.swing.JFrame {
 
-    private int puntero = 0;
     DefaultListModel modelo;
-    ArrayList<Empleados.Empleado> listaEmpleados = new ArrayList<>();
-    boolean empleadoEliminado = false;
+    Empleado aux; //empleado temporal
+    boolean campoCorrecto[] = new boolean[5];
 
     /**
      * Creates new form ProGestionEmpleados
@@ -67,11 +59,6 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
     public ProGestionEmpleados() {
         initComponents();
         initMyComponents();
-        this.setLocationRelativeTo(null);
-        clearFields();
-
-        modelo = new DefaultListModel();
-        jListListaEmpleados.setModel(modelo);
 
     }
 
@@ -79,10 +66,21 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
      * Metodo que añade los radioButton a un mismo button group
      */
     private void initMyComponents() {
+        //Añadir Radio Buttons a grupo de botones
         buttonGroupTipoTrabajador.add(jRadioButtonJefeProyecto);
         buttonGroupTipoTrabajador.add(jRadioButtonTrabajadorHoras);
         buttonGroupTipoTrabajador.add(jRadioButtonTrabajadorMontador);
         buttonGroupTipoTrabajador.add(jRadioButtonTrabajadorComision);
+
+        //Centrar Ventana
+        this.setLocationRelativeTo(null);
+
+        //Instanciar nuevo modelo para el JList
+        modelo = new DefaultListModel();
+        jListListaEmpleados.setModel(modelo);
+
+        //Limpiar los campos por defecto
+        clearFields();
     }
 
     /**
@@ -123,6 +121,19 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         jLabelSalario = new javax.swing.JLabel();
         jTextFieldSalario = new javax.swing.JTextField();
         jButtonEliminarTrabajador = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuArchivo = new javax.swing.JMenu();
+        jMenuItemSalir = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItemJefeProyecto = new javax.swing.JMenuItem();
+        jMenuItemTrabajadorHoras = new javax.swing.JMenuItem();
+        jMenuItemTrabajadorMontador = new javax.swing.JMenuItem();
+        jMenuItemTrabajadorComisión = new javax.swing.JMenuItem();
+        jSeparator = new javax.swing.JPopupMenu.Separator();
+        jMenuItemBorrarTodos = new javax.swing.JMenuItem();
+        jMenuItemBorrarSeleccionados = new javax.swing.JMenuItem();
+        jMenuItemBorrarSelección = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -335,11 +346,11 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
 
         jPanelTrabajadoresActivos.setBorder(javax.swing.BorderFactory.createTitledBorder("Trabajadores en Activos"));
 
-        jListListaEmpleados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListListaEmpleados.setToolTipText("");
-        jListListaEmpleados.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jListListaEmpleadosValueChanged(evt);
+        jListListaEmpleados.setFocusable(false);
+        jListListaEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListListaEmpleadosMouseClicked(evt);
             }
         });
         jScrollPane.setViewportView(jListListaEmpleados);
@@ -391,6 +402,105 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jMenuArchivo.setText("Archivo");
+
+        jMenuItemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemSalir.setMnemonic('S');
+        jMenuItemSalir.setText("Salir");
+        jMenuItemSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSalirActionPerformed(evt);
+            }
+        });
+        jMenuArchivo.add(jMenuItemSalir);
+
+        jMenuBar1.add(jMenuArchivo);
+
+        jMenu2.setText("Trabajador");
+
+        jMenu3.setMnemonic('N');
+        jMenu3.setText("Nuevo");
+
+        jMenuItemJefeProyecto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemJefeProyecto.setMnemonic('P');
+        jMenuItemJefeProyecto.setText("Jefe de proyecto");
+        jMenuItemJefeProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemJefeProyectoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemJefeProyecto);
+
+        jMenuItemTrabajadorHoras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemTrabajadorHoras.setMnemonic('H');
+        jMenuItemTrabajadorHoras.setText("Trabajador por horas");
+        jMenuItemTrabajadorHoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTrabajadorHorasActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemTrabajadorHoras);
+
+        jMenuItemTrabajadorMontador.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemTrabajadorMontador.setMnemonic('M');
+        jMenuItemTrabajadorMontador.setText("Trabajador montador");
+        jMenuItemTrabajadorMontador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTrabajadorMontadorActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemTrabajadorMontador);
+
+        jMenuItemTrabajadorComisión.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemTrabajadorComisión.setMnemonic('C');
+        jMenuItemTrabajadorComisión.setText("Trabajdor a comisión");
+        jMenuItemTrabajadorComisión.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTrabajadorComisiónActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemTrabajadorComisión);
+
+        jMenu2.add(jMenu3);
+        jMenu2.add(jSeparator);
+
+        jMenuItemBorrarTodos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemBorrarTodos.setMnemonic('T');
+        jMenuItemBorrarTodos.setText("Borrar todos");
+        jMenuItemBorrarTodos.setEnabled(false);
+        jMenuItemBorrarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBorrarTodosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemBorrarTodos);
+
+        jMenuItemBorrarSeleccionados.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemBorrarSeleccionados.setMnemonic('S');
+        jMenuItemBorrarSeleccionados.setText("Borrar seleccionados");
+        jMenuItemBorrarSeleccionados.setEnabled(false);
+        jMenuItemBorrarSeleccionados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBorrarSeleccionadosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemBorrarSeleccionados);
+
+        jMenuItemBorrarSelección.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemBorrarSelección.setMnemonic('B');
+        jMenuItemBorrarSelección.setText("Borrar selección");
+        jMenuItemBorrarSelección.setEnabled(false);
+        jMenuItemBorrarSelección.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBorrarSelecciónActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemBorrarSelección);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -425,50 +535,44 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
 
         try {
             if (jRadioButtonJefeProyecto.isSelected()) {
-                listaEmpleados.add(new JefeProyecto(
+                aux = new JefeProyecto(
                         jTextFieldNombre.getText().toString(),
                         jTextFieldApellido.getText().toString(),
                         Double.valueOf(jTextFieldActualizable1.getText().toString()),
                         Double.valueOf(jTextFieldActualizable2.getText().toString()),
-                        Integer.valueOf(jTextFieldActualizable3.getText().toString()))
+                        Integer.valueOf(jTextFieldActualizable3.getText().toString())
                 );
             } else if (jRadioButtonTrabajadorComision.isSelected()) {
-                listaEmpleados.add(new EmpleadoComision(
+                aux = new EmpleadoComision(
                         jTextFieldNombre.getText().toString(),
                         jTextFieldApellido.getText().toString(),
                         Double.valueOf(jTextFieldActualizable1.getText().toString()),
                         Integer.valueOf(jTextFieldActualizable3.getText().toString()),
-                        Double.valueOf(jTextFieldActualizable2.getText().toString()))
+                        Double.valueOf(jTextFieldActualizable2.getText().toString())
                 );
             } else if (jRadioButtonTrabajadorMontador.isSelected()) {
-                listaEmpleados.add(new EmpleadoMontador(
+                aux = new EmpleadoMontador(
                         jTextFieldNombre.getText().toString(),
                         jTextFieldApellido.getText().toString(),
                         Integer.valueOf(jTextFieldActualizable1.getText().toString()),
-                        Double.valueOf(jTextFieldActualizable2.getText().toString()))
+                        Double.valueOf(jTextFieldActualizable2.getText().toString())
                 );
             } else if (jRadioButtonTrabajadorHoras.isSelected()) {
-                listaEmpleados.add(new EmpleadoHoras(
+                aux = new EmpleadoHoras(
                         jTextFieldNombre.getText().toString(),
                         jTextFieldApellido.getText().toString(),
                         Integer.valueOf(jTextFieldActualizable1.getText().toString()),
-                        Double.valueOf(jTextFieldActualizable2.getText().toString()))
+                        Double.valueOf(jTextFieldActualizable2.getText().toString())
                 );
 
             }
 
-            modelo.addElement(listaEmpleados.get(puntero));
-            puntero++;
-            clearFields();
-            jButtonAñadir.setEnabled(false);
-            jButtonBorrarDatos.setEnabled(false);
+            modelo.addElement(aux); //Añado elemento al modelo
+            aux = null;//hago reset al valor de aux
+            clearFields();//Limpio todos los campos
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Los campos introducidos no son correctos");
-            if ("-1".equals(e.getLocalizedMessage())) {
-                puntero = 0;
-                listaEmpleados = new ArrayList<>();
-            }
             clearFields();
         }
     }//GEN-LAST:event_jButtonAñadirActionPerformed
@@ -484,7 +588,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBorrarDatosActionPerformed
 
     /**
-     * Conjunto de metodos que definiran el comportameinto de los RadioButton en
+     * Conjunto de metodos que definiran el comportamiento de los RadioButton en
      * la interfaz
      *
      * @param evt
@@ -558,75 +662,112 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldActualizable3KeyReleased
 
     /**
-     * Metodo que contiene el comportamiento de la lista de empleados al cambiar de valor
-     * @param evt 
-     */
-    private void jListListaEmpleadosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListListaEmpleadosValueChanged
-        // TODO add your handling code here:
-        jButtonEliminarTrabajador.setEnabled(true);
-        if (!empleadoEliminado) {
-            jTextFieldSalario.setText(Double.toString(listaEmpleados.get(jListListaEmpleados.getSelectedIndex()).getSalario()) + "€");
-        }else{
-            empleadoEliminado = false;
-        }
-    }//GEN-LAST:event_jListListaEmpleadosValueChanged
-
-    /**
      * Metodo que le da funcionalidad al boton "Borrar Empleado"
-     * @param evt 
+     *
+     * @param evt
      */
     private void jButtonEliminarTrabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarTrabajadorActionPerformed
         // TODO add your handling code here
-        
-        
-        empleadoEliminado = true;
+        modelo.removeElementAt(jListListaEmpleados.getSelectedIndex());
 
-        clearFields();
+    }//GEN-LAST:event_jButtonEliminarTrabajadorActionPerformed
 
-        try {
+    private void jMenuItemJefeProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemJefeProyectoActionPerformed
+        // TODO add your handling code here:
+        jRadioButtonJefeProyecto.doClick();
+    }//GEN-LAST:event_jMenuItemJefeProyectoActionPerformed
 
-            int index = jListListaEmpleados.getSelectedIndex();
-            modelo.remove(index);
-            puntero--;
+    private void jMenuItemTrabajadorHorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTrabajadorHorasActionPerformed
+        // TODO add your handling code here:
+        jRadioButtonTrabajadorHoras.doClick();
+    }//GEN-LAST:event_jMenuItemTrabajadorHorasActionPerformed
 
-            int size = modelo.getSize();
+    private void jMenuItemTrabajadorMontadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTrabajadorMontadorActionPerformed
+        // TODO add your handling code here:
+        jRadioButtonTrabajadorMontador.doClick();
+    }//GEN-LAST:event_jMenuItemTrabajadorMontadorActionPerformed
 
-            if (size == 0) {// No queda nadie, deshabilita el disparo.
-                jButtonEliminarTrabajador.setEnabled(false);
+    private void jMenuItemTrabajadorComisiónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTrabajadorComisiónActionPerformed
+        // TODO add your handling code here:
+        jRadioButtonTrabajadorComision.doClick();
+    }//GEN-LAST:event_jMenuItemTrabajadorComisiónActionPerformed
 
-            } else {// Seleccione un índice.
-                if (index == modelo.getSize()) {
-                    // elemento eliminado en la última posición
-                    index--;
-                }
+    private void jListListaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListListaEmpleadosMouseClicked
+        // TODO add your handling code here:
 
-                jListListaEmpleados.setSelectedIndex(index);
-                jListListaEmpleados.ensureIndexIsVisible(index);
-            }
-            
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Algo ha ido mal");
-            jListListaEmpleados.clearSelection();
-            modelo.clear();
+        int[] listaEmpleadosSelecionados = jListListaEmpleados.getSelectedIndices();
+        if (listaEmpleadosSelecionados.length == 1) {
+            //Activar boton Eliminar
+            jButtonEliminarTrabajador.setEnabled(true);
+            //Estado botones menu
+            jMenuItemBorrarTodos.setEnabled(true);
+            jMenuItemBorrarSeleccionados.setEnabled(false);
+            jMenuItemBorrarSelección.setEnabled(true);
+            //Obtener salario y mostrarlo
+            aux = (Empleado) modelo.getElementAt(jListListaEmpleados.getSelectedIndex());
+            jTextFieldSalario.setText(aux.getSalario() + "€");
+            aux = null;
+        } else if (listaEmpleadosSelecionados.length > 1) {
+            //Estado botones menu
+            jMenuItemBorrarTodos.setEnabled(true);
+            jMenuItemBorrarSeleccionados.setEnabled(true);
+            jMenuItemBorrarSelección.setEnabled(false);
+            jButtonEliminarTrabajador.setEnabled(false);
+            jLabelSalario.setText(" ");
 
         }
 
-    }//GEN-LAST:event_jButtonEliminarTrabajadorActionPerformed
+    }//GEN-LAST:event_jListListaEmpleadosMouseClicked
+
+    private void jMenuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItemSalirActionPerformed
+
+    private void jMenuItemBorrarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarTodosActionPerformed
+        // TODO add your handling code here:
+        modelo.removeAllElements();
+        jMenuItemBorrarTodos.setEnabled(false);
+    }//GEN-LAST:event_jMenuItemBorrarTodosActionPerformed
+
+    private void jMenuItemBorrarSeleccionadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarSeleccionadosActionPerformed
+        // TODO add your handling code here:
+        if (jListListaEmpleados.getSelectedIndices().length > 0) {
+            int[] selectedIndices = jListListaEmpleados.getSelectedIndices();
+            for (int i = selectedIndices.length - 1; i >= 0; i--) {
+                modelo.removeElementAt(selectedIndices[i]);
+            }
+        }
+    }//GEN-LAST:event_jMenuItemBorrarSeleccionadosActionPerformed
+
+    private void jMenuItemBorrarSelecciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarSelecciónActionPerformed
+        // TODO add your handling code here:
+        jButtonEliminarTrabajador.doClick();
+        jMenuItemBorrarSelección.setEnabled(false);
+    }//GEN-LAST:event_jMenuItemBorrarSelecciónActionPerformed
 
     /**
      * Metodo auxiliar que limpiara todos los campos
      */
     private void clearFields() {
+        //Vacio todos los campos
         jTextFieldNombre.setText(null);
         jTextFieldApellido.setText(null);
         jTextFieldActualizable1.setText(null);
         jTextFieldActualizable2.setText(null);
         jTextFieldActualizable3.setText(null);
+        //Desactivo los botones de Añadir, borrar datos y borrar Trabajador
         jButtonAñadir.setEnabled(false);
         jButtonBorrarDatos.setEnabled(false);
-        jTextFieldSalario.setText(" ");
         jButtonEliminarTrabajador.setEnabled(false);
+        //Vacio el campo salario
+        jTextFieldSalario.setText(" ");
+        //Vacio el objeto aux por si acaso
+        aux = null;
+        //Reestablezco el menu
+        jMenuItemBorrarTodos.setEnabled(false);
+        jMenuItemBorrarSeleccionados.setEnabled(false);
+        jMenuItemBorrarSelección.setEnabled(false);
     }
 
     /**
@@ -636,6 +777,58 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
      */
     private void checkDataFields() {
 
+        //Comprueba que todos los campos sean correctos
+        
+        //Nombre
+        if (jTextFieldNombre.getText().matches("^[A-Z]?[a-z]{3,}")) {
+            campoCorrecto[0] = true;
+            jTextFieldNombre.setForeground(Color.BLACK);
+
+        } else {
+            campoCorrecto[0] = false;
+            jTextFieldNombre.setForeground(Color.red);
+        }
+
+        //Apellido
+        if (jTextFieldApellido.getText().matches("^[A-Z]?[a-z]{3,}")) {
+            campoCorrecto[1] = true;
+            jTextFieldApellido.setForeground(Color.BLACK);
+
+        } else {
+            campoCorrecto[1] = false;
+            jTextFieldApellido.setForeground(Color.red);
+        }
+        //Actualizable 1
+        if (jTextFieldActualizable1.getText().matches("^(\\d|-)?(\\d|,)*\\.?\\d*$")) {
+            campoCorrecto[2] = true;
+            jTextFieldActualizable1.setForeground(Color.BLACK);
+
+        } else {
+            campoCorrecto[2] = false;
+            jTextFieldActualizable1.setForeground(Color.red);
+        }
+
+        //Actualizable 2
+        if (jTextFieldActualizable2.getText().matches("^(\\d|-)?(\\d|,)*\\.?\\d*$")) {
+            campoCorrecto[3] = true;
+            jTextFieldActualizable2.setForeground(Color.BLACK);
+
+        } else {
+            campoCorrecto[3] = false;
+            jTextFieldActualizable2.setForeground(Color.red);
+        }
+
+        //Actualizable 3
+        if (jTextFieldActualizable1.getText().matches("^(\\d|-)?(\\d|,)*\\.?\\d*$")) {
+            campoCorrecto[4] = true;
+            jTextFieldActualizable1.setForeground(Color.BLACK);
+
+        } else {
+            campoCorrecto[4] = false;
+            jTextFieldActualizable1.setForeground(Color.red);
+        }
+
+        //-----------------------------------
         //Al estar rellenado 1 campo: habilita boton borrarDatos
         if (!"".equals(jTextFieldNombre.getText().toString())
                 || !"".equals(jTextFieldApellido.getText().toString())
@@ -678,28 +871,41 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
+            /* Set the Nimbus look and feel */
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+            * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+             */
+ /*
+            try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+            if ("Nimbus".equals(info.getName())) {
+            javax.swing.UIManager.setLookAndFeel(info.getClassName());
+            break;
             }
+            }
+            } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ProGestionEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ProGestionEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ProGestionEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ProGestionEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }*/
+
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            //</editor-fold>
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProGestionEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(ProGestionEmpleados.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProGestionEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(ProGestionEmpleados.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProGestionEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProGestionEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(ProGestionEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(ProGestionEmpleados.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -722,6 +928,18 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelSalario;
     private javax.swing.JList<String> jListListaEmpleados;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenuArchivo;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItemBorrarSeleccionados;
+    private javax.swing.JMenuItem jMenuItemBorrarSelección;
+    private javax.swing.JMenuItem jMenuItemBorrarTodos;
+    private javax.swing.JMenuItem jMenuItemJefeProyecto;
+    private javax.swing.JMenuItem jMenuItemSalir;
+    private javax.swing.JMenuItem jMenuItemTrabajadorComisión;
+    private javax.swing.JMenuItem jMenuItemTrabajadorHoras;
+    private javax.swing.JMenuItem jMenuItemTrabajadorMontador;
     private javax.swing.JPanel jPanelDatosTrabajador;
     private javax.swing.JPanel jPanelTipoTrabajador;
     private javax.swing.JPanel jPanelTipodeTrabajador;
@@ -731,6 +949,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonTrabajadorHoras;
     private javax.swing.JRadioButton jRadioButtonTrabajadorMontador;
     private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JPopupMenu.Separator jSeparator;
     private javax.swing.JTextField jTextFieldActualizable1;
     private javax.swing.JTextField jTextFieldActualizable2;
     private javax.swing.JTextField jTextFieldActualizable3;
