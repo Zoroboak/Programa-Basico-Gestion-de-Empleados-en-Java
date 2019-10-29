@@ -574,6 +574,9 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Los campos introducidos no son correctos");
             clearFields();
         }
+        
+        jMenuItemBorrarTodos.setEnabled(true);
+        
     }//GEN-LAST:event_jButtonAñadirActionPerformed
 
     /**
@@ -744,6 +747,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
     private void jMenuItemBorrarSelecciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarSelecciónActionPerformed
         // TODO add your handling code here:
         jButtonEliminarTrabajador.doClick();
+        clearFields();
     }//GEN-LAST:event_jMenuItemBorrarSelecciónActionPerformed
 
     /**
@@ -765,11 +769,16 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         //Vacio el objeto aux por si acaso
         aux = null;
         //Reestablezco el menu
-        jMenuItemBorrarTodos.setEnabled(false);
+        if(jListListaEmpleados.getSelectedIndices().length>0){
+            jMenuItemBorrarTodos.setEnabled(true);
+        }else{
+            jMenuItemBorrarTodos.setEnabled(false);
+        }
         jMenuItemBorrarSeleccionados.setEnabled(false);
         jMenuItemBorrarSelección.setEnabled(false);
         //Borrar Selección JList
         jListListaEmpleados.clearSelection();
+        
     }
 
     /**
@@ -785,11 +794,9 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         if (jTextFieldNombre.getText().matches("^[A-Z]?[a-z]{3,}")) {
             campoCorrecto[0] = true;
             jTextFieldNombre.setForeground(Color.BLACK);
-            System.out.println("Correcto");
         } else {
             campoCorrecto[0] = false;
             jTextFieldNombre.setForeground(Color.red);
-            System.out.println("Incorrecto");
         }
 
         //Apellido
@@ -802,7 +809,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
             jTextFieldApellido.setForeground(Color.red);
         }
         //Actualizable 1
-        if (jTextFieldActualizable1.getText().matches("^(\\d|-)?(\\d|,)+\\.?\\d*$")) {
+        if (jTextFieldActualizable1.getText().matches("^(\\d)*?\\,?(\\d)+\\.?\\d*$")) {
             campoCorrecto[2] = true;
             jTextFieldActualizable1.setForeground(Color.BLACK);
 
@@ -812,7 +819,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         }
 
         //Actualizable 2
-        if (jTextFieldActualizable2.getText().matches("^(\\d|-)?(\\d|,)+\\.?\\d*$")) {
+        if (jTextFieldActualizable2.getText().matches("^(\\d)*?\\,?(\\d)+\\.?\\d*$")) {
             campoCorrecto[3] = true;
             jTextFieldActualizable2.setForeground(Color.BLACK);
 
@@ -822,7 +829,7 @@ public class ProGestionEmpleados extends javax.swing.JFrame {
         }
 
         //Actualizable 3
-        if (jTextFieldActualizable3.getText().matches("^(\\d|-)?(\\d|,)+\\.?\\d*$")) {
+        if (jTextFieldActualizable3.getText().matches("^(\\d)*?\\,?(\\d)+\\.?\\d*$")) {
             campoCorrecto[4] = true;
             jTextFieldActualizable3.setForeground(Color.BLACK);
 
